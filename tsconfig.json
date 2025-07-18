@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "es2019",
+        "lib": ["es2019", "ESNext.AsyncIterable"],
+        "moduleResolution": "Node",
+        "skipLibCheck": true,
+        "noLib": false,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "declaration": false,
+        "resolveJsonModule": true,
+        "newLine": "LF",
+        "noImplicitAny": false,
+        "noImplicitReturns": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "removeComments": true,
+        "types": ["node"],
+        "outDir": "dist",
+        "sourceMap": true
+    },
+    "include": ["index.ts"],
+    "exclude": ["dist", "node_modules", "scripts", "gulpfile.ts", "src/ui/**/*"]
+}

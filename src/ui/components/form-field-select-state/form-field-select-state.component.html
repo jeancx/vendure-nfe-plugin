@@ -1,0 +1,13 @@
+<ng-container [formGroup]="formGroup">
+    <zhf-form-field [label]="label" select="true">
+        <ng-select
+            [items]="states"
+            [virtualScroll]="true"
+            [placeholder]="placeholder || 'nfe-address-state-placeholder' | translate"
+            [formControl]="formControl"
+            [readonly]="readonly"
+            bindValue="value"
+            bindLabel="label"
+        ></ng-select>
+    </zhf-form-field>
+</ng-container>

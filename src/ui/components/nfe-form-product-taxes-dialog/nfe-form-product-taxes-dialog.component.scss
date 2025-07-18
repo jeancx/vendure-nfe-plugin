@@ -1,0 +1,18 @@
+::ng-deep {
+    .modal-header,
+    .modal-header--accessible {
+        padding: 0;
+    }
+
+    .modal-body {
+        min-height: 50vh;
+    }
+
+    .modal-footer {
+        padding: 0;
+    }
+
+    .info {
+        background-color: #f3f3f3;
+    }
+}

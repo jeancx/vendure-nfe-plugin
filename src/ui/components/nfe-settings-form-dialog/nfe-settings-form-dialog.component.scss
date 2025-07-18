@@ -1,0 +1,22 @@
+::ng-deep {
+    .modal-header,
+    .modal-header--accessible {
+        padding: 0;
+    }
+
+    .modal-body {
+        min-height: 50vh;
+    }
+
+    .modal-footer {
+        padding: 0;
+    }
+
+    .info {
+        background-color: #fcfcfc;
+    }
+
+    fieldset legend {
+        font-weight: bold;
+    }
+}

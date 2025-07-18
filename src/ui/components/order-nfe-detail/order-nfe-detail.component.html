@@ -1,0 +1,59 @@
+<vdr-action-bar>
+    <vdr-ab-left>
+        <vdr-entity-info [entity]="entity$ | async"></vdr-entity-info>
+        <nfe-state-label *ngIf="!(isNew$ | async)" [state]="nfeState || 'Creating'"></nfe-state-label>
+    </vdr-ab-left>
+    <vdr-ab-right>
+        <ng-container *ngIf="isNew$ | async; else updateButton">
+            <button
+                class="btn btn-primary"
+                *ngIf="isNew$ | async; else updateButton"
+                (click)="create()"
+                [disabled]="!saveButtonEnabled()"
+            >
+                {{ 'common.create' | translate }}
+            </button>
+        </ng-container>
+        <ng-template #updateButton>
+            <button
+                class="btn btn-primary"
+                (click)="save()"
+                *vdrIfPermissions="'UpdateOrder'"
+                [disabled]="!saveButtonEnabled()"
+            >
+                {{ 'common.update' | translate }}
+            </button>
+
+            <button
+                *vdrIfPermissions="'UpdateOrder'"
+                class="btn btn-success"
+                (click)="emitNfe()"
+                [disabled]="!operationEnabled('emitNfe')"
+            >
+                <clr-icon shape="check"></clr-icon>
+                Emitir NFe
+            </button>
+            <button
+                *vdrIfPermissions="'UpdateOrder'"
+                class="btn btn-warning"
+                (click)="emitCorrectionLetter()"
+                [disabled]="!operationEnabled('emitCorrectionLetter')"
+            >
+                <clr-icon shape="times"></clr-icon>
+                Carta de Correção
+            </button>
+            <button
+                *vdrIfPermissions="'UpdateOrder'"
+                class="btn btn-warning"
+                (click)="cancelNfe()"
+                [disabled]="!operationEnabled('cancelNfe')"
+            >
+                <clr-icon shape="times"></clr-icon>
+                Cancelar NFe
+            </button>
+        </ng-template>
+    </vdr-ab-right>
+</vdr-action-bar>
+
+<clr-alert clrAlertType="danger" *ngIf="operationErrorMessage">{{ operationErrorMessage }}</clr-alert>
+<zhf-nfe-form [nfeFormGroup]="detailForm"></zhf-nfe-form>

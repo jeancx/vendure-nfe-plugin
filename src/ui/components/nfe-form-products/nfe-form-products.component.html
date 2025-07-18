@@ -1,0 +1,67 @@
+<ng-container *ngIf="productsFormArray.length > 0" [formGroup]="getParentFormGroup()">
+    <ng-container formArrayName="products" *ngFor="let product of productsFormArray.controls; let i = index">
+        <ng-container [formGroup]="getItem(i)">
+            <div class="clr-row" formGroupName="info">
+                <input type="hidden" formControlName="item" value="i" [readonly]="!('UpdateOrder' | hasPermission)" />
+                <div class="clr-col-3">
+                    <zhf-form-field [label]="'nfe.product-info-nome' | translate">
+                        <input type="text" formControlName="nome" [readonly]="!('UpdateOrder' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-2">
+                    <zhf-form-field [label]="'nfe.product-info-codigo' | translate">
+                        <input type="text" formControlName="codigo" [readonly]="!('UpdateOrder' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-sm-3 clr-col-lg-1">
+                    <zhf-form-field [label]="'nfe.product-info-unidade' | translate">
+                        <input type="text" formControlName="unidade" [readonly]="!('UpdateOrder' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-md-3 clr-col-lg-1">
+                    <zhf-form-field [label]="'nfe.product-info-quantidade' | translate" readOnlyToggle>
+                        <input type="text" formControlName="quantidade" [readonly]="!('UpdateOrder' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-sm-3 clr-col-lg-1">
+                    <zhf-form-field [label]="'nfe.product-info-subtotal' | translate" readOnlyToggle>
+                        <vdr-currency-input
+                            formControlName="subtotal"
+                            (ngModelChange)="onMoneyFieldChange('subtotal')"
+                            currencyCode="BRL"
+                        ></vdr-currency-input>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-sm-3 clr-col-lg-1">
+                    <zhf-form-field [label]="'nfe.product-info-desconto' | translate" readOnlyToggle>
+                        <vdr-currency-input
+                            formControlName="desconto"
+                            (ngModelChange)="onMoneyFieldChange('desconto')"
+                            currencyCode="BRL"
+                        ></vdr-currency-input>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-sm-3 clr-col-lg-2">
+                    <zhf-form-field [label]="'nfe.product-info-total' | translate">
+                        <vdr-currency-input
+                            formControlName="total"
+                            (ngModelChange)="onMoneyFieldChange('total')"
+                            currencyCode="BRL"
+                        ></vdr-currency-input>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-1 actions">
+                    <label>Ações</label>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-icon" (click)="productTaxes(i)">
+                            <clr-icon shape="calculator"></clr-icon>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-icon btn-danger-outline" (click)="removeItem(i)">
+                            <clr-icon shape="trash"></clr-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,191 @@
+<vdr-action-bar>
+    <vdr-ab-left>
+        <vdr-entity-info [entity]="entity$ | async"></vdr-entity-info>
+    </vdr-ab-left>
+    <vdr-ab-right>
+        <ng-container *ngIf="isNew$ | async; else updateButton">
+            <button
+                class="btn btn-primary"
+                *ngIf="isNew$ | async; else updateButton"
+                (click)="create()"
+                [disabled]="!saveButtonEnabled()"
+            >
+                {{ 'common.create' | translate }}
+            </button>
+        </ng-container>
+        <ng-template #updateButton>
+            <button
+                class="btn btn-primary"
+                (click)="save()"
+                *vdrIfPermissions="'UpdateSettings'"
+                [disabled]="!saveButtonEnabled()"
+            >
+                {{ 'common.update' | translate }}
+            </button>
+        </ng-template>
+    </vdr-ab-right>
+</vdr-action-bar>
+
+<form class="form" [formGroup]="detailForm">
+    <div class="clr-row">
+        <div class="clr-col">
+            <section class="form-block">
+                <vdr-form-field [label]="'nfe.owner-name' | translate" for="ownerName">
+                    <input
+                        id="ownerName"
+                        type="text"
+                        formControlName="ownerName"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.owner-cpf' | translate" for="cpf">
+                    <input
+                        id="cpf"
+                        type="text"
+                        formControlName="cpf"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+            </section>
+            <section class="form-block">
+                <vdr-form-field [label]="'nfe.company-unit' | translate" for="unit">
+                    <select
+                        id="unit"
+                        type="text"
+                        formControlName="unit"
+                        [disabled]="!('UpdateSettings' | hasPermission)"
+                    >
+                        <option value="matriz">Matriz</option>
+                        <option value="filial">Filial</option>
+                    </select>
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.corporate-name' | translate" for="corporateName">
+                    <input
+                        id="corporateName"
+                        type="text"
+                        formControlName="corporateName"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.trade-name' | translate" for="tradeName">
+                    <input
+                        id="tradeName"
+                        type="text"
+                        formControlName="tradeName"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.cnpj' | translate" for="cnpj">
+                    <input
+                        id="cnpj"
+                        type="text"
+                        formControlName="cnpj"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.ie' | translate" for="ie">
+                    <input id="ie" type="text" formControlName="ie" [readonly]="!('UpdateSettings' | hasPermission)" />
+                </vdr-form-field>
+            </section>
+            <section class="form-block">
+                <vdr-form-field [label]="'nfe.accounting' | translate" for="accounting">
+                    <input
+                        id="accounting"
+                        type="text"
+                        formControlName="accounting"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.subdomain' | translate" for="subdomain">
+                    <input
+                        id="subdomain"
+                        type="text"
+                        formControlName="subdomain"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.logo-url' | translate" for="logoUrl">
+                    <input
+                        id="logoUrl"
+                        type="file"
+                        formControlName="logoUrl"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+            </section>
+        </div>
+        <div class="clr-col">
+            <section class="form-block">
+                <vdr-form-field [label]="'nfe.email' | translate" for="email">
+                    <input
+                        id="email"
+                        type="email"
+                        formControlName="email"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.phone' | translate" for="phone">
+                    <input
+                        id="phone"
+                        type="text"
+                        formControlName="phone"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+            </section>
+            <section class="form-block" formGroupName="address">
+                <vdr-form-field [label]="'nfe.address-postcode' | translate" for="postcode">
+                    <input
+                        id="postcode"
+                        type="text"
+                        formControlName="postcode"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-street' | translate" for="street">
+                    <input
+                        id="street"
+                        type="text"
+                        formControlName="street"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-number' | translate" for="number">
+                    <input
+                        id="number"
+                        type="text"
+                        formControlName="number"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-complement' | translate" for="complement">
+                    <input
+                        id="complement"
+                        type="text"
+                        formControlName="complement"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-neighborhood' | translate" for="neighborhood">
+                    <input
+                        id="neighborhood"
+                        type="text"
+                        formControlName="neighborhood"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-city' | translate" for="city">
+                    <input
+                        id="city"
+                        type="text"
+                        formControlName="city"
+                        [readonly]="!('UpdateSettings' | hasPermission)"
+                    />
+                </vdr-form-field>
+                <vdr-form-field [label]="'nfe.address-state' | translate" for="state">
+                    <zhf-form-field-select-state formControlName="state"></zhf-form-field-select-state>
+                </vdr-form-field>
+            </section>
+        </div>
+    </div>
+</form>

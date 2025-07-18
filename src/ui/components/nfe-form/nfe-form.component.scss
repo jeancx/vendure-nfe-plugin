@@ -1,0 +1,36 @@
+::ng-deep {
+    .form-group {
+        padding-left: 0 !important;
+
+        label:first-child {
+            width: auto !important;
+        }
+    }
+
+    fieldset {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        legend {
+            font-weight: bold;
+            box-shadow: 0 -0.05rem 0 #cccccc inset;
+        }
+    }
+
+    .clr-radio-wrapper {
+        padding-right: 30px;
+    }
+
+    vdr-currency-input {
+        width: 100% !important;
+
+        vdr-affixed-input,
+        .has-prefix {
+            width: 100% !important;
+        }
+
+        input {
+            max-width: 100% !important;
+        }
+    }
+}

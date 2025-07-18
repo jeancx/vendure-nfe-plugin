@@ -1,0 +1,38 @@
+<form *ngIf="nfeFormGroup" [formGroup]="nfeFormGroup">
+    <div class="clr-row">
+        <div class="clr-col">
+            <clr-tabs>
+                <clr-tab>
+                    <button clrTabLink>Geral</button>
+                    <clr-tab-content *clrIfActive>
+                        <zhf-nfe-form-info [infoFormGroup]="infoFormGroup()"></zhf-nfe-form-info>
+                    </clr-tab-content>
+                </clr-tab>
+                <clr-tab>
+                    <button clrTabLink>Pagamento</button>
+                    <clr-tab-content *clrIfActive>
+                        <zhf-nfe-form-payment [paymentFormGroup]="paymentFormGroup()"></zhf-nfe-form-payment>
+                    </clr-tab-content>
+                </clr-tab>
+                <clr-tab>
+                    <button clrTabLink>Produtos</button>
+                    <clr-tab-content *clrIfActive>
+                        <zhf-nfe-form-products [productsFormArray]="productsFormArray()"></zhf-nfe-form-products>
+                    </clr-tab-content>
+                </clr-tab>
+                <clr-tab>
+                    <button clrTabLink>Transporte</button>
+                    <clr-tab-content *clrIfActive>
+                        <zhf-nfe-form-transport [transportFormGroup]="transportFormGroup()"></zhf-nfe-form-transport>
+                    </clr-tab-content>
+                </clr-tab>
+                <clr-tab>
+                    <button clrTabLink>Cliente</button>
+                    <clr-tab-content *clrIfActive>
+                        <zhf-nfe-form-recipient [recipientFormGroup]="recipientFormGroup()"></zhf-nfe-form-recipient>
+                    </clr-tab-content>
+                </clr-tab>
+            </clr-tabs>
+        </div>
+    </div>
+</form>

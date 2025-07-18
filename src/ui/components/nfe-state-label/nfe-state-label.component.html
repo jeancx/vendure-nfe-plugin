@@ -1,0 +1,4 @@
+<vdr-chip [ngClass]="state" [colorType]="getColorType(state)">
+    <clr-icon [attr.shape]="getIcon(state)"></clr-icon>
+    {{ state | titlecase }}
+</vdr-chip>

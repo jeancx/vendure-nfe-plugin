@@ -1,0 +1,60 @@
+<ng-container [formGroup]="transportFormGroup">
+    <div class="clr-row">
+        <div class="clr-col-4">
+            <zhf-form-field [label]="'nfe.transport-modalidade' | translate" select="true">
+                <select formControlName="modalidade">
+                    <option value="0">0 - Contratação do Frete por conta do Remetente (CIF)</option>
+                    <option value="1">1 - Contratação do Frete por conta do Destinatário (FOB)</option>
+                    <option value="2">2 - Contratação do Frete por conta de Terceiro</option>
+                    <option value="3">3 - Transporte Próprio por conta do Remetente</option>
+                    <option value="4">4 - Transporte Próprio por conta do Destinatário</option>
+                    <option value="9">9 - Sem Ocorrência de Transporte</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-2">
+            <zhf-form-field [label]="'nfe.transport-volume' | translate">
+                <input type="text" formControlName="volume" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-2">
+            <zhf-form-field [label]="'nfe.transport-especie' | translate">
+                <input type="text" formControlName="especie" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-2">
+            <zhf-form-field [label]="'nfe.transport-peso-bruto' | translate" d>
+                <input type="number" formControlName="peso_bruto" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-2">
+            <zhf-form-field [label]="'nfe.transport-peso-liquido' | translate" d>
+                <input type="number" formControlName="peso_liquido" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.transport-marca' | translate">
+                <input type="text" formControlName="marca" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.transport-numeracao' | translate">
+                <input type="text" formControlName="numeracao" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.transport-lacres' | translate" d>
+                <input type="text" formControlName="lacres" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.transport-total' | translate">
+                <vdr-currency-input
+                    formControlName="total"
+                    (ngModelChange)="onMoneyFieldChange('total')"
+                    currencyCode="BRL"
+                ></vdr-currency-input>
+            </zhf-form-field>
+        </div>
+    </div>
+</ng-container>

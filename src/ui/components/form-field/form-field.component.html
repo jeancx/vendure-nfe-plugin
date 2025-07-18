@@ -1,0 +1,34 @@
+<div class="form-group" [class.clr-error]="formFieldControl?.formControlName?.invalid">
+    <label *ngIf="label" [for]="for" [class.required]="required">
+        {{ label }}
+        <clr-tooltip *ngIf="tooltip">
+            <clr-icon clrTooltipTrigger shape="info-circle" size="24"></clr-icon>
+            <clr-tooltip-content vdrPosition="top-right" clrSize="lg">
+                <span>{{ tooltip }}</span>
+            </clr-tooltip-content>
+        </clr-tooltip>
+    </label>
+    <label
+        aria-haspopup="true"
+        role="tooltip"
+        class="tooltip tooltip-validation tooltip-sm tooltip-top-left"
+        [for]="for"
+        [class.invalid]="formFieldControl?.touched && !formFieldControl?.valid"
+    >
+        <div class="input-row" [class.has-toggle]="readOnlyToggle" [class.select]="select">
+            <ng-content></ng-content>
+            <button
+                type="button"
+                class="btn btn-icon edit-button"
+                *ngIf="readOnlyToggle"
+                [disabled]="!isReadOnly"
+                [title]="'common.edit-field' | translate"
+                (click)="setReadOnly(false)"
+            >
+                <clr-icon shape="edit"></clr-icon>
+            </button>
+        </div>
+
+        <div class="clr-subtext" *ngIf="getErrorMessage()">{{ getErrorMessage() }}</div>
+    </label>
+</div>

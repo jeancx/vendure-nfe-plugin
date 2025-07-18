@@ -1,0 +1,72 @@
+<div *ngIf="paymentFormGroup" [formGroup]="paymentFormGroup">
+    <fieldset>
+        <legend>Fatura</legend>
+        <div class="clr-row" formGroupName="fatura">
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.fatura-numero' | translate">
+                    <input type="text" formControlName="numero" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.fatura-valor' | translate">
+                    <vdr-currency-input
+                        formControlName="valor"
+                        (ngModelChange)="onMoneyFieldChange('frete')"
+                        currencyCode="BRL"
+                    ></vdr-currency-input>
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.fatura-desconto' | translate">
+                    <vdr-currency-input
+                        formControlName="desconto"
+                        (ngModelChange)="onMoneyFieldChange('frete')"
+                        currencyCode="BRL"
+                    ></vdr-currency-input>
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.fatura-valor-liquido' | translate">
+                    <vdr-currency-input
+                        formControlName="valor_liquido"
+                        (ngModelChange)="onMoneyFieldChange('frete')"
+                        currencyCode="BRL"
+                    ></vdr-currency-input>
+                </zhf-form-field>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Parcelas</legend>
+        <ng-container formArrayName="parcelas" *ngFor="let parcela of installments().controls; let i = index">
+            <div class="clr-row" [formGroup]="getItem(i)">
+                <div class="clr-col-3">
+                    <zhf-form-field [label]="'nfe.parcela-vencimento' | translate">
+                        <input type="date" formControlName="vencimento" [readonly]="!('UpdateOrder' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-3">
+                    <zhf-form-field [label]="'nfe.parcela-valor' | translate">
+                        <vdr-currency-input
+                            formControlName="valor"
+                            (ngModelChange)="onMoneyFieldChange('valor')"
+                            currencyCode="BRL"
+                        ></vdr-currency-input>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-2 actions">
+                    <label>Ações</label>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-icon">
+                            <clr-icon shape="calculator"></clr-icon>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-icon btn-danger-outline" (click)="removeItem(i)">
+                            <clr-icon shape="trash"></clr-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </fieldset>
+</div>

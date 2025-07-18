@@ -1,0 +1,119 @@
+<div [formGroup]="infoFormGroup" *ngIf="infoFormGroup">
+    <div class="clr-row">
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.info-modelo' | translate" select="true">
+                <select formControlName="modelo">
+                    <option value="1">NF-e</option>
+                    <option value="2">NFC-e</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.info-operacao' | translate" select="true">
+                <select formControlName="operacao">
+                    <option value="1">Saída</option>
+                    <option value="exportacao">Exportação</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-6">
+            <zhf-form-field [label]="'nfe.info-natureza-operacao' | translate">
+                <input type="text" formControlName="natureza_operacao" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-data-emissao' | translate">
+                <input
+                    type="datetime-local"
+                    formControlName="data_emissao"
+                    [readonly]="!('UpdateOrder' | hasPermission)"
+                />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-data-entrada-saida' | translate">
+                <input
+                    type="datetime-local"
+                    formControlName="data_entrada_saida"
+                    [readonly]="!('UpdateOrder' | hasPermission)"
+                />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-presenca' | translate" select="true" required="true">
+                <select formControlName="presenca" required>
+                    <option value=""></option>
+                    <option value="0">0 - Não se aplica</option>
+                    <option value="1">1 - Operação presencial</option>
+                    <option value="2">2 - Operação não presencial, pela Internet</option>
+                    <option value="3">3 - Operação não presencial, Teleatendimento</option>
+                    <option value="4">4 - NFC-e em operação com entrega a domicílio</option>
+                    <option value="5">5 - Operação presencial, fora do estabelecimento</option>
+                    <option value="9">9 - Operação não presencial, outros</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-intermediador' | translate" select="true">
+                <select formControlName="intermediador">
+                    <option value="0">0 - Operação sem intermediador (em site ou plataforma própria)</option>
+                    <option value="1">
+                        1 - Operação em site ou plataforma de terceiros (intermediadores/marketplace)
+                    </option>
+                </select>
+            </zhf-form-field>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-frete' | translate">
+                <vdr-currency-input
+                    formControlName="frete"
+                    (ngModelChange)="onMoneyFieldChange('frete')"
+                    currencyCode="BRL"
+                ></vdr-currency-input>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-desconto' | translate">
+                <vdr-currency-input
+                    formControlName="desconto"
+                    (ngModelChange)="onMoneyFieldChange('desconto')"
+                    currencyCode="BRL"
+                ></vdr-currency-input>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-despesas_acessorias' | translate">
+                <vdr-currency-input
+                    formControlName="despesas_acessorias"
+                    (ngModelChange)="onMoneyFieldChange('despesas_acessorias')"
+                    currencyCode="BRL"
+                ></vdr-currency-input>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-total' | translate">
+                <vdr-currency-input
+                    formControlName="total"
+                    (ngModelChange)="onMoneyFieldChange('total')"
+                    currencyCode="BRL"
+                ></vdr-currency-input>
+            </zhf-form-field>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-informacoes-fisco' | translate">
+                <textarea rows="3" formControlName="informacoes_fisco"></textarea>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.info-informacoes-complementares' | translate">
+                <textarea rows="3" formControlName="informacoes_complementares"></textarea>
+            </zhf-form-field>
+        </div>
+    </div>
+</div>

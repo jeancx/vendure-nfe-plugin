@@ -1,0 +1,100 @@
+<ng-container [formGroup]="recipientFormGroup">
+    <div class="clr-row">
+        <div class="clr-col">
+            <clr-radio-container clrInline>
+                <label>{{ 'nfe.recipient-tipo-pessoa' | translate }}</label>
+                <clr-radio-wrapper>
+                    <input type="radio" clrRadio formControlName="tipo_pessoa" value="F" />
+                    <label>{{ 'nfe.recipient-tipo-pessoa-fisica' | translate }}</label>
+                </clr-radio-wrapper>
+                <clr-radio-wrapper>
+                    <input type="radio" clrRadio formControlName="tipo_pessoa" value="J" />
+                    <label>{{ 'nfe.recipient-tipo-pessoa-juridica' | translate }}</label>
+                </clr-radio-wrapper>
+                <clr-radio-wrapper>
+                    <input type="radio" clrRadio formControlName="tipo_pessoa" value="E" />
+                    <label>{{ 'nfe.recipient-tipo-pessoa-estrangeira' | translate }}</label>
+                </clr-radio-wrapper>
+            </clr-radio-container>
+        </div>
+    </div>
+
+    <div class="clr-row">
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-nome-completo' | translate">
+                <input type="text" formControlName="nome_completo" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-cpf' | translate">
+                <input type="text" formControlName="cpf" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-ie' | translate">
+                <input type="text" formControlName="ie" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-consumidor-final' | translate" select="true">
+                <select formControlName="consumidor_final">
+                    <option value="1">{{ 'nfe.recipient-consumidor-final-sim' | translate }}</option>
+                    <option value="0">{{ 'nfe.recipient-consumidor-final-nao' | translate }}</option>
+                </select>
+            </zhf-form-field>
+        </div>
+    </div>
+
+    <div class="clr-row">
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-telefone' | translate">
+                <input type="text" formControlName="telefone" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col-3">
+            <zhf-form-field [label]="'nfe.recipient-email' | translate">
+                <input type="text" formControlName="email" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend>Endereco</legend>
+
+        <div class="clr-row">
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-postcode' | translate">
+                    <input type="text" formControlName="cep" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-street' | translate">
+                    <input type="text" formControlName="logradouro" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-number' | translate">
+                    <input type="text" formControlName="numero" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-complement' | translate">
+                    <input type="text" formControlName="complemento" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-neighborhood' | translate">
+                    <input type="text" formControlName="bairro" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field [label]="'nfe.address-city' | translate">
+                    <input type="text" formControlName="cidade" [readonly]="!('UpdateOrder' | hasPermission)" />
+                </zhf-form-field>
+            </div>
+            <div class="clr-col-3">
+                <zhf-form-field-select-state formControlName="uf"></zhf-form-field-select-state>
+            </div>
+        </div>
+    </fieldset>
+</ng-container>

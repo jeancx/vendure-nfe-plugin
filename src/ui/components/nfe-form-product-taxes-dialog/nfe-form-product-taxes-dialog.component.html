@@ -1,0 +1,838 @@
+<ng-template vdrDialogTitle>{{ 'nfe.product-taxes' | translate }}</ng-template>
+<form [formGroup]="productFormGroup">
+    <div class="clr-row info" formGroupName="info">
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.product-info-origem' | translate" select="true">
+                <select formControlName="origem">
+                    <option value="0">0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</option>
+                    <option value="1">1 - Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                    <option value="2">
+                        2 - Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7
+                    </option>
+                    <option value="3">
+                        3 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e inferior ou igual a
+                        70%
+                    </option>
+                    <option value="4">
+                        4 - Nacional, cuja produção tenha sido feita em conformidade com os processos produtivos básicos
+                        de que tratam as legislações citadas nos Ajustes
+                    </option>
+                    <option value="5">
+                        5 - Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%
+                    </option>
+                    <option value="6">
+                        6 - Estrangeira - Importação direta, sem similar nacional, constante em lista da CAMEX e gás
+                        natural
+                    </option>
+                    <option value="7">
+                        7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e
+                        gás natural
+                    </option>
+                    <option value="8">8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.product-info-classe-imposto' | translate" select="true">
+                <select formControlName="classe_imposto">
+                    <option value=""></option>
+                    <option value="manual">Informar manualmente</option>
+                    <option value="REF11779924">REF11779924 - Venda de mercadoria não presencial.</option>
+                </select>
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.product-info-ncm' | translate">
+                <input type="text" formControlName="ncm" [readonly]="!('UpdateOrder' | hasPermission)" />
+            </zhf-form-field>
+        </div>
+        <div class="clr-col">
+            <zhf-form-field [label]="'nfe.product-info-specific-detailing' | translate" select="true">
+                <select formControlName="detalhamento_especifico">
+                    <option value="nenhum">
+                        {{ 'nfe.product-specific-detailing-nenhum' | translate }}
+                    </option>
+                    <option value="combustiveis">
+                        {{ 'nfe.product-specific-detailing-combustiveis' | translate }}
+                    </option>
+                    <option value="medicamento">
+                        {{ 'nfe.product-specific-detailingl-medicamento' | translate }}
+                    </option>
+                </select>
+            </zhf-form-field>
+        </div>
+    </div>
+    <clr-tabs>
+        <ng-container formGroupName="additionalInfo">
+            <clr-tab>
+                <button clrTabLink>{{ 'nfe.product-addit-info' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-ind-escala' | translate" select="true">
+                                <select name="ind_escala">
+                                    <option value="">Selecionar</option>
+                                    <option value="S">S - Produzido em Escala Relevante</option>
+                                    <option value="N">N - Produzido em Escala NÃO Relevante</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-cnpj-fabricante' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="cnpj_fabricante"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-gtin' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="gtin"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-gtin-tributavel' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="gtin_tributavel"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-cest' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="cest"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-nve' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="nve"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-nrecopi' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="nrecopi"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-addit-info-ex-ipi' | translate">
+                                <input
+                                    type="text"
+                                    formControlName="ex_ipi"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field
+                                [label]="'nfe.product-addit-info-ativo-permanente' | translate"
+                                [tooltip]="'nfe.product-addit-info-ativo-permanente-tooltip' | translate"
+                            >
+                                <input
+                                    type="checkbox"
+                                    value="true"
+                                    clrToggle
+                                    formControlName="ativo_permanente"
+                                    [readonly]="!('UpdateOrder' | hasPermission)"
+                                />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.info-informacoes-adicionais' | translate">
+                                <textarea rows="3" formControlName="informacoes_adicionais"></textarea>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab formGroupName="rastro">
+                <button clrTabLink>{{ 'nfe.product-rastro' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-rastro-lote' | translate">
+                                <input type="text" formControlName="lote" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-rastro-quantidade' | translate">
+                                <input type="text" formControlName="quantidade" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-rastro-data-fabricacao' | translate">
+                                <input type="date" formControlName="data_fabricacao" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-rastro-data-validade' | translate">
+                                <input type="date" formControlName="data_validade" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+        </ng-container>
+        <clr-tab *ngIf="!specificDetailing('nenhum')" formGroupName="specificDetailing">
+            <button clrTabLink>{{ 'nfe.product-specific-detailing' | translate }}</button>
+            <clr-tab-content *clrIfActive>
+                <div class="clr-row" *ngIf="specificDetailing('medicamento')" formGroupName="medicamento">
+                    <div class="clr-col">
+                        <zhf-form-field [label]="'nfe.product-medicamento-codigo-anvisa' | translate">
+                            <input type="text" formControlName="codigo_anvisa" />
+                        </zhf-form-field>
+                    </div>
+                    <div class="clr-col">
+                        <zhf-form-field [label]="'nfe.product-medicamento-pmc' | translate">
+                            <vdr-currency-input
+                                formControlName="pmc"
+                                (ngModelChange)="onMoneyFieldChange('pmc')"
+                                currencyCode="BRL"
+                            ></vdr-currency-input>
+                        </zhf-form-field>
+                    </div>
+                </div>
+                <ng-container *ngIf="specificDetailing('combustiveis')" formGroupName="combustiveis">
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-codigo-anp' | translate">
+                                <input type="text" formControlName="codigo_anp" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-descricao-anp' | translate">
+                                <input type="text" formControlName="descricao_anp" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-codif' | translate">
+                                <input type="number" formControlName="codif" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-partida' | translate">
+                                <vdr-currency-input
+                                    formControlName="partida"
+                                    (ngModelChange)="onMoneyFieldChange('partida')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-bc-cide' | translate">
+                                <vdr-currency-input
+                                    formControlName="bc_cide"
+                                    (ngModelChange)="onMoneyFieldChange('bc_cide')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-valor-cide' | translate">
+                                <vdr-currency-input
+                                    formControlName="valor_cide"
+                                    (ngModelChange)="onMoneyFieldChange('valor_cide')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-qtd-temperatura' | translate">
+                                <input type="number" formControlName="qtd_temperatura" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-encerrante-inicio' | translate">
+                                <input type="number" formControlName="encerrante_inicio" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-encerrante-final' | translate">
+                                <input type="number" formControlName="encerrante_final" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field-select-state
+                                formControlName="uf_consumo"
+                                [label]="'nfe.product-fuel-uf-consumo' | translate"
+                            ></zhf-form-field-select-state>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-percentual-glp' | translate">
+                                <vdr-affixed-input prefix="%">
+                                    <input type="number" formControlName="percentual_glp" />
+                                </vdr-affixed-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-percentual-gnn' | translate">
+                                <vdr-affixed-input prefix="%">
+                                    <input type="number" formControlName="percentual_gnn" />
+                                </vdr-affixed-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-percentual-gni' | translate">
+                                <vdr-affixed-input prefix="%">
+                                    <input type="number" formControlName="percentual_gni" />
+                                </vdr-affixed-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-bico' | translate">
+                                <input type="number" formControlName="bico" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-bomba' | translate">
+                                <input type="number" formControlName="bomba" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-fuel-tanque' | translate">
+                                <input type="number" formControlName="tanque" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </ng-container>
+            </clr-tab-content>
+        </clr-tab>
+        <ng-container *ngIf="isManualTax()" formGroupName="taxes">
+            <clr-tab formGroupName="icms">
+                <button clrTabLink>{{ 'nfe.product-tax-icms' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-codigo-cfop' | translate">
+                                <input type="text" formControlName="codigo_cfop" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-situacao-tributaria' | translate" select="true">
+                                <select formControlName="situacao_tributaria">
+                                    <option value="101">101 - Tributada com permissão de crédito</option>
+                                    <option value="102">102 - Tributada sem permissão de crédito</option>
+                                    <option value="103">103 - Isenção do ICMS para faixa de receita bruta</option>
+                                    <option value="201">
+                                        201 - Tributada com permissão de crédito e com cobrança do ICMS por Substituição
+                                        Tributária
+                                    </option>
+                                    <option value="202">
+                                        202 - Tributada sem permissão de crédito e com cobrança do ICMS por Substituição
+                                        ́Tributária
+                                    </option>
+                                    <option value="203">
+                                        203 - Isenção do ICMS para faixa de receita bruta e com cobrança do ICMS por
+                                        Substituição Tributária
+                                    </option>
+                                    <option value="300">300 - Imune</option>
+                                    <option value="400">400 - Não tributada</option>
+                                    <option value="500">
+                                        500 - ICMS cobrado anteriormente por substituição tributária (substituído) ou
+                                        por antecipação
+                                    </option>
+                                    <option value="900">900 - Outros</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-importacao' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_importacao"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_importacao')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-industria' | translate" select="true">
+                                <select formControlName="industria">
+                                    <option value="">Selecionar</option>
+                                    <option value="0">0 - Não</option>
+                                    <option value="1">1 - Sim</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-credito' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_credito"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_credito')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-mva' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_mva"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_mva')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-reducao' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_reducao"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_reducao')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-reducao-st' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_reducao_st"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_reducao_st')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-efetiva-icms' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_efetiva_icms"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_efetiva_icms')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-efetiva-icms-st' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_efetiva_icms_st"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_efetiva_icms_st')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-diferimento' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_diferimento"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_diferimento')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-fcp-retido' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_fcp_retido"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_fcp_retido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-aliquota-st-retido' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota_st_retido"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota_st_retido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-bc-st-retido' | translate">
+                                <vdr-currency-input
+                                    formControlName="bc_st_retido"
+                                    (ngModelChange)="onMoneyFieldChange('bc_st_retido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-efetivo' | translate">
+                                <vdr-currency-input
+                                    formControlName="icms_efetivo"
+                                    (ngModelChange)="onMoneyFieldChange('icms_efetivo')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-valor-st-retido' | translate">
+                                <vdr-currency-input
+                                    formControlName="valor_st_retido"
+                                    (ngModelChange)="onMoneyFieldChange('valor_st_retido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-valor-icms-substituto' | translate">
+                                <vdr-currency-input
+                                    formControlName="valor_icms_substituto"
+                                    (ngModelChange)="onMoneyFieldChange('valor_icms_substituto')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-valor-fcp-retido' | translate">
+                                <vdr-currency-input
+                                    formControlName="valor_fcp_retido"
+                                    (ngModelChange)="onMoneyFieldChange('valor_fcp_retido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-motivo-desoneracao' | translate">
+                                <input type="number" formControlName="motivo_desoneracao" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-icms-pauta-fiscal' | translate">
+                                <vdr-currency-input
+                                    formControlName="pauta_fiscal"
+                                    (ngModelChange)="onMoneyFieldChange('pauta_fiscal')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab formGroupName="ipi">
+                <button clrTabLink>{{ 'nfe.product-tax-ipi' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col-6">
+                            <zhf-form-field [label]="'nfe.product-tax-situacao-tributaria' | translate" select="true">
+                                <select formControlName="situacao_tributaria">
+                                    <option value="00">00 - Entrada com recuperação de crédito</option>
+                                    <option value="01">01 - Entrada tributada com alíquota zero</option>
+                                    <option value="02">02 - Entrada isenta</option>
+                                    <option value="03">03 - Entrada não-tributada</option>
+                                    <option value="04">04 - Entrada imune</option>
+                                    <option value="05">05 - Entrada com suspensão</option>
+                                    <option value="49">49 - Outras entradas</option>
+                                    <option value="50">50 - Saída tributada</option>
+                                    <option value="51">51 - Saída tributada com alíquota zero</option>
+                                    <option value="52">52 - Saída isenta</option>
+                                    <option value="53">53 - Saída não-tributada</option>
+                                    <option value="54">54 - Saída imune</option>
+                                    <option value="55">55 - Saída com suspensão</option>
+                                    <option value="99">99 - Outras saídas</option>
+                                    <option value="100">Sem tributação de IPI</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-codigo-enquadramento' | translate">
+                                <input type="number" formControlName="codigo_enquadramento" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-aliquota' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-percentual-devolvido' | translate">
+                                <vdr-affixed-input prefix="%">
+                                    <input type="number" formControlName="percentual_devolvido" />
+                                </vdr-affixed-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-ipi-devolvido' | translate">
+                                <vdr-currency-input
+                                    formControlName="ipi_devolvido"
+                                    (ngModelChange)="onMoneyFieldChange('ipi_devolvido')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-codigo-selo' | translate">
+                                <input type="number" formControlName="codigo_selo" />
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-ipi-qtd-selo' | translate">
+                                <input type="number" formControlName="qtd_selo" />
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab formGroupName="pis">
+                <button clrTabLink>{{ 'nfe.product-tax-pis' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-situacao-tributaria' | translate" select="true">
+                                <select formGroupName="situacao_tributaria">
+                                    <option value="01">
+                                        01 - Operação Tributável - Base de Cálculo = Valor da Operação Alíquota Normal
+                                        (Cumulativo/Não cumulativo)
+                                    </option>
+                                    <option value="02">
+                                        02 - Operação Tributável - Base de Cálculo = Valor da Operação (Alíquota
+                                        diferenciada)
+                                    </option>
+                                    <option value="03">
+                                        03 - Operação Tributável - Base de Cálculo = Quantidade Vendida X Alíquota por
+                                        Unidade de Produto
+                                    </option>
+                                    <option value="04">
+                                        04 - Operação Tributável - Tributação Monofásica - (Alíquota Zero)
+                                    </option>
+                                    <option value="06">06 - Operação Tributável - Alíquota Zero</option>
+                                    <option value="07">07 - Operação Isenta de Contribuição</option>
+                                    <option value="08">08 - Operação sem Incidência da Contribuição</option>
+                                    <option value="09">09 - Operação com Suspensão da Contribuição</option>
+                                    <option value="49">49 - Outras Operações de Saída</option>
+                                    <option value="50">
+                                        50 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita
+                                        Tributada no Mercado Interno
+                                    </option>
+                                    <option value="51">
+                                        51 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não
+                                        Tributada no Mercado Interno
+                                    </option>
+                                    <option value="52">
+                                        52 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita de
+                                        Exportação
+                                    </option>
+                                    <option value="53">
+                                        53 - Operação com Direito a Crédito - Vinculado a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno
+                                    </option>
+                                    <option value="54">
+                                        54 - Operação com Direito a Crédito - Vinculada a Receitas Tributadas no Mercado
+                                        Interno e de Exportação
+                                    </option>
+                                    <option value="55">
+                                        55 - Operação com Direito a Crédito - Vinculada a Receitas Não-Tributadas no
+                                        Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="56">
+                                        56 - Operação com Direito a Crédito - Vinculado a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno, e de Exportação
+                                    </option>
+                                    <option value="60">
+                                        60 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita Tributada no Mercado Interno
+                                    </option>
+                                    <option value="61">
+                                        61 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita Não-Tributada no Mercado Interno
+                                    </option>
+                                    <option value="62">
+                                        62 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita de Exportação
+                                    </option>
+                                    <option value="63">
+                                        63 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno
+                                    </option>
+                                    <option value="64">
+                                        64 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas
+                                        no Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="65">
+                                        65 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas
+                                        Não-Tributadas no Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="66">
+                                        66 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno, e de Exportação
+                                    </option>
+                                    <option value="67">67 - Crédito Presumido - Outras Operações</option>
+                                    <option value="70">70 - Operação de Aquisição sem Direito a Crédito</option>
+                                    <option value="71">71 - Operação de Aquisição com Isenção</option>
+                                    <option value="72">72 - Operação de Aquisição com Suspensão</option>
+                                    <option value="73">73 - Operação de Aquisição a Alíquota Zero</option>
+                                    <option value="74">
+                                        74 - Operação de Aquisição sem Incidência da Contribuição
+                                    </option>
+                                    <option value="75">75 - Operação de Aquisição por Substituição Tributária</option>
+                                    <option value="98">98 - Outras Operações de Entrada</option>
+                                    <option value="99">99 - Outras Operações</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-pis-aliquota' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab formGroupName="cofins">
+                <button clrTabLink>{{ 'nfe.product-tax-cofins' | translate }}</button>
+                <clr-tab-content *clrIfActive>
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-situacao-tributaria' | translate" select="true">
+                                <select formGroupName="situacao_tributaria">
+                                    <option value="01">
+                                        01 - Operação Tributável - Base de Cálculo = Valor da Operação Alíquota Normal
+                                        (Cumulativo/Não cumulativo)
+                                    </option>
+                                    <option value="02">
+                                        02 - Operação Tributável - Base de Cálculo = Valor da Operação (Alíquota
+                                        diferenciada)
+                                    </option>
+                                    <option value="03">
+                                        03 - Operação Tributável - Base de Cálculo = Quantidade Vendida X Alíquota por
+                                        Unidade de Produto
+                                    </option>
+                                    <option value="04">
+                                        04 - Operação Tributável - Tributação Monofásica - (Alíquota Zero)
+                                    </option>
+                                    <option value="06">06 - Operação Tributável - Alíquota Zero</option>
+                                    <option value="07">07 - Operação Isenta de Contribuição</option>
+                                    <option value="08">08 - Operação sem Incidência da Contribuição</option>
+                                    <option value="09">09 - Operação com Suspensão da Contribuição</option>
+                                    <option value="49">49 - Outras Operações de Saída</option>
+                                    <option value="50">
+                                        50 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita
+                                        Tributada no Mercado Interno
+                                    </option>
+                                    <option value="51">
+                                        51 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não
+                                        Tributada no Mercado Interno
+                                    </option>
+                                    <option value="52">
+                                        52 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita de
+                                        Exportação
+                                    </option>
+                                    <option value="53">
+                                        53 - Operação com Direito a Crédito - Vinculado a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno
+                                    </option>
+                                    <option value="54">
+                                        54 - Operação com Direito a Crédito - Vinculada a Receitas Tributadas no Mercado
+                                        Interno e de Exportação
+                                    </option>
+                                    <option value="55">
+                                        55 - Operação com Direito a Crédito - Vinculada a Receitas Não-Tributadas no
+                                        Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="56">
+                                        56 - Operação com Direito a Crédito - Vinculado a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno, e de Exportação
+                                    </option>
+                                    <option value="60">
+                                        60 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita Tributada no Mercado Interno
+                                    </option>
+                                    <option value="61">
+                                        61 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita Não-Tributada no Mercado Interno
+                                    </option>
+                                    <option value="62">
+                                        62 - Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a
+                                        Receita de Exportação
+                                    </option>
+                                    <option value="63">
+                                        63 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno
+                                    </option>
+                                    <option value="64">
+                                        64 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas
+                                        no Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="65">
+                                        65 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas
+                                        Não-Tributadas no Mercado Interno e de Exportação
+                                    </option>
+                                    <option value="66">
+                                        66 - Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e
+                                        Não-Tributadas no Mercado Interno, e de Exportação
+                                    </option>
+                                    <option value="67">67 - Crédito Presumido - Outras Operações</option>
+                                    <option value="70">70 - Operação de Aquisição sem Direito a Crédito</option>
+                                    <option value="71">71 - Operação de Aquisição com Isenção</option>
+                                    <option value="72">72 - Operação de Aquisição com Suspensão</option>
+                                    <option value="73">73 - Operação de Aquisição a Alíquota Zero</option>
+                                    <option value="74">
+                                        74 - Operação de Aquisição sem Incidência da Contribuição
+                                    </option>
+                                    <option value="75">75 - Operação de Aquisição por Substituição Tributária</option>
+                                    <option value="98">98 - Outras Operações de Entrada</option>
+                                    <option value="99">99 - Outras Operações</option>
+                                </select>
+                            </zhf-form-field>
+                        </div>
+                        <div class="clr-col">
+                            <zhf-form-field [label]="'nfe.product-tax-cofins-aliquota' | translate">
+                                <vdr-currency-input
+                                    formControlName="aliquota"
+                                    (ngModelChange)="onMoneyFieldChange('aliquota')"
+                                    currencyCode="BRL"
+                                ></vdr-currency-input>
+                            </zhf-form-field>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+        </ng-container>
+    </clr-tabs>
+</form>
+<ng-template vdrDialogButtons>
+    <button type="button" class="btn" (click)="cancel()">
+        {{ 'common.cancel' | translate }}
+    </button>
+    <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="canSubmit()">
+        {{ 'common.confirm' | translate }}
+    </button>
+</ng-template>

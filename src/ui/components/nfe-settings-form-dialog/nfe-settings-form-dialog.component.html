@@ -1,0 +1,236 @@
+<ng-template vdrDialogTitle>
+    <ng-container *ngIf="isType('PaymentMethod')">{{ 'nfe.setting-payment-method' | translate }}</ng-container>
+    <ng-container *ngIf="isType('ShippingMethod')">{{ 'nfe.setting-shipping-method' | translate }}</ng-container>
+    <ng-container *ngIf="isType('Custom')">{{ 'nfe.setting-custom' | translate }}</ng-container>
+</ng-template>
+
+<form [formGroup]="formGroup">
+    <ng-container *ngIf="isType('PaymentMethod')">
+        <fieldset>
+            <legend>{{ 'nfe.setting-method-id' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col">
+                    <zhf-form-field>
+                        <select formControlName="code" (change)="setMethodId($event.target.value)">
+                            <option *ngFor="let method of codeOptions$ | async" [value]="method.value">
+                                {{ method.name }}
+                            </option>
+                        </select>
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'nfe.setting-method-data-to-fill-nfe' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col-6">
+                    <zhf-form-field [label]="'nfe.setting-payment-type' | translate" select="true">
+                        <select formControlName="pagamento">
+                            <option value="0">{{ 'nfe.setting-payment-type-0' | translate }}</option>
+                            <option value="1">{{ 'nfe.setting-payment-type-1' | translate }}</option>
+                        </select>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-6">
+                    <zhf-form-field [label]="'nfe.setting-payment-form' | translate">
+                        <select formControlName="forma_pagamento">
+                            <option value="01">{{ 'nfe.setting-payment-form-01' | translate }}</option>
+                            <option value="02">{{ 'nfe.setting-payment-form-02' | translate }}</option>
+                            <option value="03">{{ 'nfe.setting-payment-form-03' | translate }}</option>
+                            <option value="04">{{ 'nfe.setting-payment-form-04' | translate }}</option>
+                            <option value="05">{{ 'nfe.setting-payment-form-05' | translate }}</option>
+                            <option value="10">{{ 'nfe.setting-payment-form-10' | translate }}</option>
+                            <option value="11">{{ 'nfe.setting-payment-form-11' | translate }}</option>
+                            <option value="12">{{ 'nfe.setting-payment-form-12' | translate }}</option>
+                            <option value="13">{{ 'nfe.setting-payment-form-13' | translate }}</option>
+                            <option value="14">{{ 'nfe.setting-payment-form-14' | translate }}</option>
+                            <option value="15">{{ 'nfe.setting-payment-form-15' | translate }}</option>
+                            <option value="16">{{ 'nfe.setting-payment-form-16' | translate }}</option>
+                            <option value="17">{{ 'nfe.setting-payment-form-17' | translate }}</option>
+                            <option value="18">{{ 'nfe.setting-payment-form-18' | translate }}</option>
+                            <option value="19">{{ 'nfe.setting-payment-form-19' | translate }}</option>
+                            <option value="90">{{ 'nfe.setting-payment-form-90' | translate }}</option>
+                            <option value="99">{{ 'nfe.setting-payment-form-99' | translate }}</option>
+                        </select>
+                    </zhf-form-field>
+                </div>
+
+                <div class="clr-col-12">
+                    <zhf-form-field [label]="'nfe.setting-payment-integration-type' | translate">
+                        <select formControlName="tipo_integracao">
+                            <option value=""></option>
+                            <option value="1">{{ 'nfe.setting-payment-integration-type-1' | translate }}</option>
+                            <option value="2">{{ 'nfe.setting-payment-integration-type-2' | translate }}</option>
+                        </select>
+                    </zhf-form-field>
+                </div>
+
+                <div class="clr-col-12">
+                    <zhf-form-field [label]="'nfe.setting-payment-accreditation-cnpj' | translate">
+                        <input
+                            type="text"
+                            formControlName="cnpj_credenciadora"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        />
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+    </ng-container>
+
+    <ng-container *ngIf="isType('ShippingMethod')">
+        <fieldset>
+            <legend>{{ 'nfe.setting-method-id' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col">
+                    <zhf-form-field required>
+                        <select
+                            formControlName="code"
+                            (change)="setMethodId($event.target.value)"
+                            *ngIf="codeOptions$"
+                            required
+                        >
+                            <option *ngFor="let method of codeOptions$ | async" [value]="method.value">
+                                {{ method.name }}
+                            </option>
+                        </select>
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'nfe.setting-shipping-company' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.cnpj' | translate">
+                        <input type="text" formControlName="cnpj" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.corporate-name' | translate">
+                        <input
+                            type="text"
+                            formControlName="razao_social"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.ie' | translate">
+                        <input type="text" formControlName="ie" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+            </div>
+            <div class="clr-row info">
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.cpf' | translate">
+                        <input type="text" formControlName="cpf" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.full-name' | translate">
+                        <input
+                            type="text"
+                            formControlName="nome_completo"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-vehicle-plate' | translate">
+                        <input type="text" formControlName="placa" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'nfe.setting-shipping-company-address' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col-lg-4">
+                    <zhf-form-field [label]="'nfe.address' | translate">
+                        <input
+                            type="text"
+                            formControlName="endereco"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-lg-3">
+                    <zhf-form-field [label]="'nfe.address-city' | translate">
+                        <input type="text" formControlName="cidade" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-lg-3">
+                    <zhf-form-field [label]="'nfe.address-state' | translate">
+                        <zhf-form-field-select-state
+                            formControlName="uf"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        ></zhf-form-field-select-state>
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-lg-2">
+                    <zhf-form-field [label]="'nfe.address-postcode' | translate">
+                        <input type="text" formControlName="cep" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset formGroupName="reboque">
+            <legend>{{ 'nfe.setting-shipping-trailer' | translate }}</legend>
+            <div class="clr-row info">
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-vehicle-plate' | translate">
+                        <input type="text" formControlName="placa" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-vehicle-state' | translate">
+                        <input
+                            type="text"
+                            formControlName="uf_veiculo"
+                            [readonly]="!('UpdateSettings' | hasPermission)"
+                        />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-trailer' | translate">
+                        <input type="text" formControlName="reboque" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-rntc' | translate">
+                        <input type="text" formControlName="rntc" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-wagon' | translate">
+                        <input type="text" formControlName="vagao" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+                <div class="clr-col-4">
+                    <zhf-form-field [label]="'nfe.setting-shipping-balsa' | translate">
+                        <input type="text" formControlName="balsa" [readonly]="!('UpdateSettings' | hasPermission)" />
+                    </zhf-form-field>
+                </div>
+            </div>
+        </fieldset>
+    </ng-container>
+
+    <ng-container *ngIf="isType('Custom')">
+        <div class="clr-row info"></div>
+    </ng-container>
+</form>
+
+<ng-template vdrDialogButtons>
+    <button type="button" class="btn" (click)="cancel()">
+        {{ 'common.cancel' | translate }}
+    </button>
+    <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="canSubmit()">
+        {{ 'common.confirm' | translate }}
+    </button>
+</ng-template>

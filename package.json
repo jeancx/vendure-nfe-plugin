@@ -1,0 +1,50 @@
+{
+    "name": "@jeancx/vendure-nfe-plugin",
+    "description": "Um plugin do vendure para emissão de NF-e.",
+    "version": "2.2.4-v1",
+    "license": "MIT",
+    "author": "ZHF",
+    "homepage": "https://jeancx.dev",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
+    "keywords": [
+        "vendure",
+        "plugin",
+        "NF",
+        "NFe",
+        "NF-e",
+        "NFc",
+        "NF-c",
+        "nota",
+        "fiscal",
+        "eletrônica",
+        "emissão",
+        "sefaz"
+    ],
+    "scripts": {
+        "watch": "concurrently -n tsc,gulp \"tsc --watch\" \"gulp watch\"",
+        "prebuild": "rimraf dist",
+        "build": "tsc && gulp build",
+        "extract-translations": "node scripts/extract-translations.js",
+        "generate-types": "graphql-codegen --config ./codegen.json",
+        "publish-local": "npm publish --registry http://localhost:4873"
+    },
+    "devDependencies": {
+        "@biesbjerg/ngx-translate-extract": "^7.0.3",
+        "@graphql-codegen/add": "5.0.2",
+        "@graphql-codegen/cli": "5.0.2",
+        "@graphql-codegen/typescript-operations": "4.2.1",
+        "@nestjs/common": "10.3.3",
+        "@nestjs/graphql": "12.1.1",
+        "@types/gulp": "^4.0.7",
+        "@vendure/common": "2.2.4",
+        "@vendure/core": "2.2.4",
+        "graphql": "16.8.1",
+        "gulp": "^4.0.2",
+        "rimraf": "^3.0.2",
+        "typescript": "5.3.3"
+    }
+}
