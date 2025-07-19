@@ -10,7 +10,6 @@ import {
     NfeTransport,
 } from '../../types/generated-admin-types';
 import { JsonData } from '../../types';
-import { NfeProduct } from '../../ui/generated-types';
 import { EmitterOperationResponse } from '../nfe-emitter.interface';
 
 function convertMoney(value?: number | null | undefined): string {

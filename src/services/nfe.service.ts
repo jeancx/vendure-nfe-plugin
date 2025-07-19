@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PaginatedList } from '@vendure/common/lib/shared-types';
 import {
     EventBus,
